@@ -1,18 +1,18 @@
+import { useSocketContext } from "../../context/SocketContext";
 import useConversation from "../../zustand/useConversation";
+import { formatName, ellipsisName } from "../../utils/formatName";
 
 const Conversation = ({ conversation, lastIdx }) => {
 
     const {selectedConversation, setSelectedConversation} = useConversation();
 
+    const {onlineUsers} = useSocketContext();
+    const isOnline = onlineUsers.includes(conversation._id);
+
     const isSelected = selectedConversation?._id === conversation._id;
 
-    const formatName = (fullName) => {
-        const nameParts = fullName.split(' ');
-        let formattedName = nameParts.slice(0, 2).join(' ');
-        if (fullName.length > 20) {
-            formattedName = formattedName.substring(0, 17) + '...';
-        }
-        return formattedName;
+    const parseName = (fullName) => {
+        return formatName(ellipsisName(fullName));
     };
 
     return(
@@ -23,12 +23,12 @@ const Conversation = ({ conversation, lastIdx }) => {
                 ${isSelected ? "bg-sky-300" : ""}`}
             onClick={() => setSelectedConversation(conversation)}
             >
-                <div className="relative w-11">
+                <div className="relative w-11 ">
                     <img src={conversation.profilePicture} alt="profile" className="w-full h-full" />
-                    <span className="absolute bottom-0 right-0 block w-3 h-3 bg-green-500 rounded-full border-2 border-white"></span>
+                    {isOnline && <span className="absolute bottom-0 right-0 block w-3 h-3 bg-green-500 rounded-full border-2 border-white"></span>}
                 </div>
                 <div className="name w-full">
-                    <h1 className="text-white flex justify-start">{formatName(conversation.fullName)}</h1>
+                    <h1 className="text-white flex justify-start">{parseName(conversation.fullName)}</h1>
                 </div>
             </div>
 

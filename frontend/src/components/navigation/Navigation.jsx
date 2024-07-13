@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuthContext } from '../../context/authContext';
+import { useAuthContext } from '../../context/AuthContext.jsx';
 
 const Navigation = () => {
     const [isOpen, setIsOpen] = useState(false);

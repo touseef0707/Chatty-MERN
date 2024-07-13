@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useSignup from '../../hooks/useSignup.js';
-import { useAuthContext } from '../../context/authContext.jsx';
+import { useAuthContext } from '../../context/AuthContext.jsx';
 
 const SignUp = () => {
 

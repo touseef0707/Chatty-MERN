@@ -6,9 +6,11 @@ import messageRoutes from './routes/message.routes.js';
 import userRoutes from './routes/user.routes.js';
 import connectDB from '../backend/db/connectToMongoDB.js';
 import cookieParser from 'cookie-parser';
+import {app, io, server} from './socket/socket.js';
 
 dotenv.config();
-const app = express();
+// const app = express(); -- commented out because we are importing it from socket.js
+
 const port = process.env.PORT || 5000;
 
 // CORS configuration
@@ -22,16 +24,16 @@ app.use(express.json()) // to parse the incoming request with JSON payloads
 app.use(cookieParser()) // to parse the incoming request cookies
 // app.use(cors()) // to allow cross-origin requests
 
-app.get('/', (req, res) => {
-    res.send('Hello World')
-})
+// app.get('/', (req, res) => {
+//     res.send('Hello World')
+// })
 
 app.use('/api/auth', authRoutes)
 app.use('/api/messages', messageRoutes)
 app.use('/api/users', userRoutes)
 
 
-app.listen(port, () =>{
+server.listen(port, () =>{
     connectDB()
     console.log(`Server is running on  http://localhost:${port}`)
 })

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import useLogin from '../../hooks/useLogin.js';
 import { useNavigate } from 'react-router-dom';
-import { useAuthContext } from '../../context/authContext.jsx';
+import { useAuthContext } from '../../context/AuthContext.jsx';
 
 const Login = () => {
     const { login, loading } = useLogin();

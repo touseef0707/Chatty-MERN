@@ -7,7 +7,7 @@ import Chats from './pages/chats/Chats';
 import Home from './pages/home/Home';
 import Profile from './pages/profile/Profile.jsx';
 import toast, { Toaster } from 'react-hot-toast';
-import { useAuthContext } from './context/authContext.jsx';
+import { useAuthContext } from './context/AuthContext.jsx';
 import { Navigate } from 'react-router-dom';
 
 function App() {

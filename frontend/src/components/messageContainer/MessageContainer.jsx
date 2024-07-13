@@ -4,7 +4,9 @@ import Messages from './Messages'
 import MessageInput from './MessageInput'
 import { TiMessages } from 'react-icons/ti'
 import useConversation from '../../zustand/useConversation'
-import { set } from 'mongoose'
+import { useAuthContext } from '../../context/AuthContext.jsx'
+import { formatName, ellipsisName } from '../../utils/formatName.js'
+
 
 
 const MessagesContainer = () => {
@@ -24,10 +26,12 @@ const MessagesContainer = () => {
 
 
 const NoChatSelected = () => {
+  const { authUser } = useAuthContext();
+  console.log(authUser)
   return (
     <div className='flex items-center justify-center w-full h-full'>
       <div className='px-4 text-center sm:text-lg md:text-x1text-gray-200 font-semibold flex flex-col items-center gap-2'>
-        <p className='text-5xl'>Welcome John Doe! 👋 </p>
+        <p className='text-5xl'>Welcome {formatName(authUser.fullname)}! 👋 </p>
         <p className='text-3xl'>Select a chat to start messaging</p>
         <TiMessages className='text-9xl md:text-6x1 text-center' />
       </div>
