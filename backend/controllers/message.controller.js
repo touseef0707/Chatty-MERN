@@ -15,7 +15,7 @@ const sendMessage = async (req, res) => {
             conversation = await Conversation.create({
                 participants: [senderID, receiverID],
             })
-            console.log('New conversation created')
+            // console.log('New conversation created')
         }
         
         const newMessage = new Message({
@@ -37,12 +37,12 @@ const sendMessage = async (req, res) => {
         // run in parallel
         await Promise.all([conversation.save(), newMessage.save()])
 
-        res.status(201).json({newMessage})
+        res.status(201).json(newMessage)
 
 
     } catch (error) {
-        console.log("Error in sendMessage controller: ", error.message)
-        res.status(500).json({error: 'Something went wrong'})
+        // console.log("Error in sendMessage controller: ", error.message)
+        res.status(500).json({error: 'API Error: sendMessage Controller'})
     }
 }
 
@@ -56,16 +56,16 @@ const getMessages = async (req, res) => {
         }).populate('messages')
 
         if(!conversation) {
-            return res.status(404).json({error: 'No conversation found'})
+            return res.status(200).json([])
         }
 
-        res.status(200).json(conversation.messages.map(message => ({
-            message: message.message
-        })))
+        const messages = conversation.messages;
+
+		res.status(200).json(messages);
         
     } catch (error) {
-        console.log("Error in getMessages controller: ", error.message)
-        res.status(500).json({error: 'Something went wrong'})
+        // console.log("Error in getMessages controller: ", error.message)
+        res.status(500).json({error: 'API Error: getMessages Controller'})
     }
 }
 

@@ -5,8 +5,9 @@ import genererateTokenAndSetCookie from "../utils/gentoken.js";
 
 export const signup = async (req, res) => {
     try{
+        console.log(req.body)
         const {fullName, username, password, confirmPassword, gender} = req.body;
-
+        
         if(password !== confirmPassword) {
             return res.status(400).json({error: 'Password does not match'})
         }
@@ -34,9 +35,8 @@ export const signup = async (req, res) => {
         if (newUser){
 
             genererateTokenAndSetCookie(newUser._id, res)
-
             await newUser.save()
-            console.log('User registered successfully')
+
             res.status(201).json({
             _id: newUser._id,
             fullname: newUser.fullName,
@@ -48,8 +48,8 @@ export const signup = async (req, res) => {
         }
 
     } catch (error) {
-        console.log("Error in signup controller: ", error.message)
-        res.status(500).json({error: 'Something went wrong'})
+        // console.log("Error in signup controller: ", error.message)
+        res.status(500).json({error: 'Server: Signup API Error'})
     }
 }
 
@@ -75,8 +75,8 @@ export const login = async (req, res) => {
         })
 
     }catch (error) {
-        console.log("Error in Login controller: ", error.message)
-        res.status(500).json({error: 'Something went wrong'})
+        // console.log("Error in Login controller: ", error.message)
+        res.status(500).json({error: 'Server: Login API Error'})
     }
 }
 
@@ -85,8 +85,8 @@ export const logout = (req, res) => {
         res.cookie('jwt','', {maxAge: 0});
         res.status(200).json({message: 'User signed out successfully'})
     } catch (error) {
-        console.log("Error in Logout controller: ", error.message)
-        res.status(500).json({error: 'Something went wrong'})
+        // console.log("Error in Logout controller: ", error.message)
+        res.status(500).json({error: 'Server: Logout API Error'})
     }
 }
 
