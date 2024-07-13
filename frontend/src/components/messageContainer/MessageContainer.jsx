@@ -1,14 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import TitleBar from './TitleBar'
 import Messages from './Messages'
-import BottomBar from './BottomBar'
+import MessageInput from './MessageInput'
 import { TiMessages } from 'react-icons/ti'
+import useConversation from '../../zustand/useConversation'
+import { set } from 'mongoose'
+
 
 const MessagesContainer = () => {
-  const noChatSelected = true;
+  const { selectedConversation, setSelectedConversation } = useConversation()
+
+  useEffect(() => {
+    // unmount when not in view
+    return () => setSelectedConversation(null)
+  },[setSelectedConversation]);
+
   return (
     <div className='flex flex-col w-full mx-5 py-5 relative'>
-    {noChatSelected ? <NoChatSelected /> : <ChatSelected/>}
+    {!selectedConversation ? <NoChatSelected /> : <ChatSelected/>}
     </div>
   )
 }
@@ -29,11 +38,11 @@ const NoChatSelected = () => {
 const ChatSelected = () => {
   return (
     <>
-      <TitleBar />
+      <TitleBar/>
 
       <Messages />
 
-      <BottomBar />
+      <MessageInput />
     </>
   )
 }
