@@ -18,7 +18,7 @@ const ChattyLanding = () => {
                         Connect with friends and family instantly. Share your thoughts, send messages,
                         and stay connected no matter where you are. Join the Chatty community today!
                     </p>
-                    <Link to={'/signup'} className="btn  text-white bg-red-700 hover:bg-red-900 border-none">
+                    <Link to='/signup' className="btn  text-white bg-red-700 hover:bg-red-900 border-none">
                         Get Started
                     </Link>
                 </div>
