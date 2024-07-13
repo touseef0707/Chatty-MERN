@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuthContext } from '../../context/authContext';
 
 const Navigation = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const { authUser } = useAuthContext();
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -23,18 +25,18 @@ const Navigation = () => {
                     <Link to="/" className="text-gray-300 hover:text-white flex items-center gap-1">
                         <img src="svg/home.svg" alt="home" /> <span>Home</span>
                     </Link>
-                    <Link to="/chats" className="text-gray-300 hover:text-white flex items-center gap-1">
+                    {authUser?<Link to="/chats" className="text-gray-300 hover:text-white flex items-center gap-1">
                         <img src="svg/chat.svg" alt="chat" /> <span>Chats</span>
-                    </Link>
-                    <Link to="/signup" className="text-gray-300 hover:text-white flex items-center gap-1">
+                    </Link>:null}
+                    {!authUser?<Link to="/signup" className="text-gray-300 hover:text-white flex items-center gap-1">
                         <img src="svg/register.svg" alt="register" /><span>SignUp</span>
-                    </Link>
-                    <Link to="/login" className="text-gray-300 hover:text-white flex items-center gap-1">
+                    </Link>:null}
+                    {!authUser?<Link to="/login" className="text-gray-300 hover:text-white flex items-center gap-1">
                         <img src="svg/login.svg" alt="login" /><span>Login</span>
-                    </Link>
-                    <Link to="/profile" className="text-gray-300 hover:text-white flex items-center gap-1">
+                    </Link>:null}
+                    {authUser?<Link to="/profile" className="text-gray-300 hover:text-white flex items-center gap-1">
                         <img src="svg/account.svg" alt="account" /><span>Account</span>
-                    </Link>
+                    </Link>:null}
                     
                 </div>
                 <button
