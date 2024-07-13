@@ -10,7 +10,7 @@ const useLogout = () => {
     const Logout = async () => {
         try {
 
-            const result = await fetch("http://localhost:8000/api/auth/logout", {
+            const result = await fetch("/api/auth/logout", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
