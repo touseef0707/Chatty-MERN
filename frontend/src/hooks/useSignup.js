@@ -1,17 +1,24 @@
-import React, { useContext, useState } from 'react'
-import toast from 'react-hot-toast';
+import { useState } from 'react';
 import { useAuthContext } from '../context/AuthContext.jsx';
+import toast from 'react-hot-toast';
 
 const useSignup = () => {
 
-    const [loading, setLoading] = useState(false);
-    const { setAuthUser } = useAuthContext();
+    const [loading, setLoading] = useState(false);      // Loading state
+    const { setAuthUser } = useAuthContext();       // get setAuthUser state method from useAuthContext
 
+    
     const signup = async (data) => {
-        const success = handleInputErrors(data)
-        if (!success) return
+
+        // Step 1: Handle Input Errors
+        const success = handleInputErrors(data);
+        if (!success) return;
+
+        // Hitting API with try catch block
         try {
-            setLoading(true)
+            setLoading(true);
+
+            // Hit API post
             const res = await fetch('/api/auth/signup', {
                 method: 'POST',
                 headers: {
@@ -19,34 +26,45 @@ const useSignup = () => {
                 },
                 body: JSON.stringify(data),
                 credentials: 'include'
-            })
-            const result = await res.json()
+            });
+
+            // Get result
+            const result = await res.json();
+
+            // if result is OK
             if (res.ok) {
-                toast.success(result.message)
-                // console.log(result)
+
+                toast.success(result.message);
+                // console.log(result);
+
                 // Save user data in local storage
-                localStorage.setItem('chat-user', JSON.stringify(result))
+                localStorage.setItem('chat-user', JSON.stringify(result));
+
                 // Set user data in context
-                setAuthUser(result)
+                setAuthUser(result);
 
             }
             else {
-                toast.error(result.message)
-                // console.log(result.error)
+                toast.error(result.message);
+                // console.log(result.error);
             }
-            
-            
+
+
         } catch (error) {
-            toast.error(error.message)
+            toast.error(error.message);
+
         } finally {
-            setLoading(false)
+            setLoading(false);
+
         }
     }
     return { signup, loading };
 }
 
-
+// Helper function to handle input errors if any
 function handleInputErrors(data) {
+
+    // destructure the data
     const { fullName, username, password, confirmPassword, gender } = data;
     const errors = {};
 
@@ -79,5 +97,4 @@ function handleInputErrors(data) {
     return true;
 }
 
-
-export default useSignup
+export default useSignup;
