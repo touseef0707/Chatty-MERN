@@ -7,7 +7,6 @@ Chatty is a simple chat application developed as a learning project, featuring r
 - **Real-time Chat:** Users can send and receive messages instantly.
 - **Authentication:** Secure signup and login using JSON Web Tokens (JWT).
 - **Design:** Built with Tailwind CSS and Daisy UI for aesthetic UI components.
-- **Contribute to Responsiveness:** I would like anyone to help me up with responsiveness.
 
 ## Technologies Used
 
@@ -33,30 +32,38 @@ To get a local copy up and running follow these simple steps.
 2. Install NPM packages for both frontend and backend
    ```sh
    cd chatty
-   cd frontend
    npm install
-   cd ..
-   cd backend
+   cd frontend
    npm install
    ```
 3. Set up environment variables:
    - Create a `.env` file in the `backend` directory with the following content:
      ```
-     PORT=5000
+     PORT=8000
      MONGODB_URI=your_mongodb_connection_string
      JWT_SECRET=your_jwt_secret_key
+     NODE_ENV=development
      ```
-4. Run the development servers:
-   - Start the backend server (from the `backend` directory):
+4. Minor change in `frontend\src\context\SocketContext.jsx`:
+   - Update the socket to the following in **line 20**:
+     ```
+     const socket = io("http://localhost:8000",{
+        query: {
+           userId: authUser._id
+        }
+     })
+     ```
+5. Run the development servers:
+   - Start the backend server (from the `main` directory):
      ```sh
-     npm run dev
+     npm run server
      ```
    - Start the frontend server (from the `frontend` directory):
      ```sh
-     npm start
+     npm run dev
      ```
 
-5. Open your browser and navigate to `http://localhost:3000` to see the app running.
+6. Open your browser and navigate to `http://localhost:3000` to see the app running.
 
 ## Usage
 
@@ -65,11 +72,14 @@ To get a local copy up and running follow these simple steps.
 
 ## Contributing
 
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
+- You may contribute to responsiveness across all devices.
+- Add Contact, Delete Contact, Delete Messages, Send Images or GIFS Functionalities.
+- And any other great functionalities you may come up with.
 
 1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
+2. Create your Feature Branch (`git checkout -b feature/FeatureName`)
+3. Commit your Changes (`git commit -m 'Add some FeatureName'`)
+4. Push to the Branch (`git push origin feature/FeatureName`)
 5. Open a Pull Request
 
