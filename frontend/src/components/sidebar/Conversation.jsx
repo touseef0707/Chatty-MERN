@@ -2,26 +2,31 @@ import { useSocketContext } from "../../context/SocketContext";
 import useConversation from "../../zustand/useConversation";
 import { formatName, ellipsisName } from "../../utils/formatName";
 
+// Conversation: A sub-component of conversations to display a single conversation
 const Conversation = ({ conversation, lastIdx }) => {
 
-    const {selectedConversation, setSelectedConversation} = useConversation();
+    // Get selectedConversation and setSelectedConversation from useConversation hook
+    const { selectedConversation, setSelectedConversation } = useConversation();
 
-    const {onlineUsers} = useSocketContext();
+    // Get onlineUsers from useSocketContext hook
+    const { onlineUsers } = useSocketContext();
     const isOnline = onlineUsers.includes(conversation._id);
 
+    // Check if the conversation is selected
     const isSelected = selectedConversation?._id === conversation._id;
 
+    // Parse the name of the conversation
     const parseName = (fullName) => {
         return formatName(ellipsisName(fullName));
     };
 
-    return(
+    return (
         <>
-            <div 
-            className={`conversation flex items-center space-x-4 p-3 backdrop-filter 
+            <div
+                className={`conversation flex items-center space-x-4 p-3 backdrop-filter 
                 hover:backdrop-blur-lg bg-opacity-30 w-full
                 ${isSelected ? "bg-sky-300" : ""}`}
-            onClick={() => setSelectedConversation(conversation)}
+                onClick={() => setSelectedConversation(conversation)}
             >
                 <div className="relative w-11 ">
                     <img src={conversation.profilePicture} alt="profile" className="w-full h-full" />
@@ -32,9 +37,9 @@ const Conversation = ({ conversation, lastIdx }) => {
                 </div>
             </div>
 
-            {!lastIdx && <div className="divider my-0 py-0 h-1"/>}
+            {!lastIdx && <div className="divider my-0 py-0 h-1" />}
         </>
-    )
+    );
 }
 
-export default Conversation
+export default Conversation;

@@ -5,26 +5,29 @@ import useLogout from '../../hooks/useLogout';
 
 Modal.setAppElement('#root');
 
+// LogoutDiv: A sub-component of sidebar to logout user
 const LogoutDiv = () => {
+
+  // Get Logout method and loading state from useLogout hook
   const { Logout, loading } = useLogout();
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const openModal = () => {
     setModalIsOpen(true);
-  };
+  }
 
   const closeModal = () => {
     setModalIsOpen(false);
-  };
+  }
 
   const handleLogout = async () => {
     await Logout();
     closeModal();
-  };
+  }
 
   return (
     <div>
-      <button 
+      <button
         className="bottomBar bottom-3 right-3 absolute flex justify-end items-end"
         onClick={openModal}
       >

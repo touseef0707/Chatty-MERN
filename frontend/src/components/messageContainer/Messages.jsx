@@ -4,11 +4,17 @@ import Message from './Message.jsx';
 import MessageSkeletons from '../../components/skeletons/MessageSkeletons.jsx';
 import useListenMessages from '../../hooks/useListenMessages.js';
 
+// Messages: A sub-component of Message Container to display Chats and Messages
 const Messages = () => {
-    const { loading, messages } = useGetMessages();
-    useListenMessages();
-    const lastMessageRef = useRef();
 
+    // Get loading and messages state from useGetMessages hook
+    const { loading, messages } = useGetMessages();
+
+    useListenMessages();    // useListenMessages hook for incoming messages
+    const lastMessageRef = useRef();    // Track last message
+
+    /* using ref to scroll to the last message on opening a new chat,
+    this is basically done by listening to changes in messages state */
     useEffect(() => {
             setTimeout(() =>{
                 lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });

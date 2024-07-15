@@ -1,11 +1,14 @@
-import React from 'react'
-import useConversation from '../../zustand/useConversation'
+import React from 'react';
+import useConversation from '../../zustand/useConversation';
 import { useSocketContext } from "../../context/SocketContext";
 
 const TitleBar = () => {
-    const {selectedConversation} = useConversation();
 
-    const {onlineUsers} = useSocketContext();
+    // Get the selected conversation from useConversation hook
+    const { selectedConversation } = useConversation();
+
+    // Get the online users from useSocketContext hook
+    const { onlineUsers } = useSocketContext();
     const isOnline = onlineUsers.includes(selectedConversation._id);
 
     return (
@@ -23,7 +26,7 @@ const TitleBar = () => {
             </button>
             <div />
         </div>
-    )
+    );
 }
 
-export default TitleBar
+export default TitleBar;

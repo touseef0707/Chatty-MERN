@@ -1,3 +1,5 @@
+// A loader skeleton for the messages container
+
 const MessageSkeleton = () => {
 	return (
 		<>
@@ -16,5 +18,5 @@ const MessageSkeleton = () => {
 			</div>
 		</>
 	);
-};
+}
 export default MessageSkeleton;

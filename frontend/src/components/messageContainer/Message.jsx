@@ -1,18 +1,23 @@
 import React from 'react';
 import { useAuthContext } from '../../context/AuthContext';
-import { extractTime } from '../../utils/extractTime';
 import useConversation from '../../zustand/useConversation';
+import { extractTime } from '../../utils/extractTime';
 
-const Message = ({message}) => {
-    const { authUser } = useAuthContext();
-    const { selectedConversation } = useConversation();
-    const fromMe = message.sender === authUser._id;
-    const formattedTime = extractTime(message.createdAt);
-    const chatClassName = fromMe ? "chat-end" : "chat-start";
+// Message component that will display a chat that's sent or received
+const Message = ({ message }) => {
+
+    const { authUser } = useAuthContext();  // Get authenticated user
+    const { selectedConversation } = useConversation();     // Get selected conversation from hook
+    const fromMe = message.sender === authUser._id;     // compare sender with authenticated user
+
+    const chatClassName = fromMe ? "chat-end" : "chat-start";   // set classname for message
+    const bubbleBgColor = fromMe ? "bg-blue-500" : "";      // Set bubble color for message
+    const shakeClass = message.shouldShake ? "shake" : "";  // Shake class set in socket upon new message
+
+    const formattedTime = extractTime(message.createdAt);   // format the time
+
+    // Get profile pic based on user
     const profilePic = fromMe ? authUser.profilePicture : selectedConversation?.profilePicture;
-    const bubbleBgColor = fromMe ? "bg-blue-500" : "";
-    
-    const shakeClass = message.shouldShake ? "shake" : "";
 
     return (
         <div className={`chat ${chatClassName}`}>
@@ -25,6 +30,6 @@ const Message = ({message}) => {
             <div className='chat-footer opacity-50 text-xs flex gap-1 items-center'>{formattedTime}</div>
         </div>
     );
-};
+}
 
 export default Message;

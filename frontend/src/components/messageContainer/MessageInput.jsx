@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import useSendMessage from '../../hooks/useSendMessage';
 
+// Message Input: A sub-component for message container to send chats.
 const MessageInput = () => {
-    const [message, setMessage] = useState('');
-    const { loading, sendMessage } = useSendMessage();
+
+    const [message, setMessage] = useState('');         // Message state for inputs
+    
+    // get loading state and sendMessage function from useSendMessage hook
+    const { loading, sendMessage } = useSendMessage();  
 
     const handleSendMessage = async (e) => {
         e.preventDefault();
@@ -12,7 +16,7 @@ const MessageInput = () => {
         }
         await sendMessage(message);
         setMessage(''); // Clear the input after sending the message
-    };
+    }
 
     return (
         <div className="absolute bottom-3 w-full">
@@ -38,6 +42,6 @@ const MessageInput = () => {
             </form>
         </div>
     );
-};
+}
 
 export default MessageInput;
